@@ -12,8 +12,6 @@ a.font = "3em m",
 	r = p.random, 
 	s = p.sqrt, 
 	t = p.abs, 
-	u, 
-	v,
 
 // spacebar presses	
 onkeyup = onkeydown = function(d) {
@@ -24,7 +22,7 @@ onkeyup = onkeydown = function(d) {
 // draw a circle
 A = function(d, e, h, m) {
 	with(a)
-   		m && (a.fillStyle = "00fff00900".substr(m-1,3)),
+   		m && (a.fillStyle = "00fff00900f0".substr(m-1,3)),
    		beginPath(), arc( d, e, h, 0, q, !0), fill();
    	return A
 },
@@ -36,7 +34,7 @@ Z = function(d, e) {
     k = W - 8 * (e+=d);
 
 	// draw the body, eyes and nose
-    A(f, k - 75, 35, 1)(f, k - 30, 55)(f - T, k - 91, 5, 6)(f + T, k - 90, 5)(f - z, k - 50 , T)(f + z, k - 50, T);
+    A(f, k - 75, 35, 1)(f, k - 30, 55);
 
 	// score
     a.fillText(g, f - 100, W - 50);
@@ -46,7 +44,7 @@ Z = function(d, e) {
 
 	// iterate through the balls to see if we caught one
 	while (n=l[--j])
-        -1 == d && t(n.x - f) < z && n.y < k - 10 && n.y > k - 85 && (1 != n && g++, l[j] = 1);
+        -1 == d && t(n.x - f) < z && t(n.y - (k-55) ) < 40 && (1 != n && g++, l[j] = 1);
 
 	// reset the iterator
     j = 0;
