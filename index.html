@@ -1,0 +1,223 @@
+<!doctype html>
+<html>
+	<head>
+		<title>JS1k, 1k demo submission [ID]</title>
+		<meta charset="utf-8" />
+	</head>
+	<body>
+		<canvas id="c"></canvas>
+		<script>
+			var b = document.body;
+			var c = document.getElementsByTagName('canvas')[0];
+			var a = c.getContext('2d');
+			document.body.clientWidth; // fix bug in webkit: http://qfox.nl/weblog/218
+		</script>
+		<script>
+// start of submission //
+
+c.width=c.height=width=510;
+var ballsize = 20,
+	outerCircle = 250,
+	innerCircle=40,
+	center = 255,
+	court = 500,
+	balls = [],
+	white = "#fff",
+	black = "#000",
+	hippo = new hippo(0,-1,"#02d"),
+	pi = Math.PI,
+	onkeydown = function(i){
+		if( i.which == 32 ) hippo.bite();
+	},
+	onkeyup = function(i){
+		if( i.which == 32 ) hippo.chomp();
+	};
+	for(var x=-5;x<5;x++){
+		balls.push(new ball() );
+	}
+	a.font = "5ex y";
+	
+	
+
+	
+	
+
+
+function drawCourt(){
+	with(a)
+		// background
+		fillStyle="#f00",
+		fillRect(0,0,width,width),
+
+		// middle circle
+		strokeStyle="#100",
+		beginPath(),
+		arc(center,center,innerCircle,0,pi*2,true),
+		closePath(),
+		stroke(),
+
+		//outer circle
+		strokeStyle="#100",
+		beginPath(),
+		arc( center ,center , outerCircle ,0,pi*2,true),
+		closePath(),
+		stroke();
+		
+	for(var j=0,jlen=balls.length;j<jlen;j++){
+		balls[j].move().redraw();
+	}
+	hippo.redraw();
+}	
+
+
+function hippo( x , y , color ){
+	var me = this,
+		x=x,
+		y=y,
+		color = color,
+		xPos=center-center*x,
+		yPos=center-center*y;
+	
+		score = 0,
+	
+		dist = 0,
+		dir = 0;
+	
+	me.bite = function(){
+		dir=1;
+	}
+	me.chomp = function(){
+		dir=-1;
+	}
+
+	
+	me.redraw = function(force){
+		var moving_distance = dist*8;
+		with(a)
+			fillStyle=color,
+			//body
+			beginPath(),
+			arc( xPos , yPos+y*(75+moving_distance) , 35 ,0,pi*2,true),
+			arc( xPos , yPos+y*(30+moving_distance) , 55 ,0,pi*2,true),
+			closePath(),
+			fill(),
+			// eyes
+			fillStyle=white,
+			beginPath(),
+			arc( xPos-20 ,yPos+y*(50+moving_distance) , 10 ,0,pi*2,true),
+			arc( xPos+20 ,yPos+y*(50+moving_distance) , 10 ,0,pi*2,true),
+			closePath(),
+			fill(),
+			
+			
+			// nose
+			fillStyle=color.replace("d","9"),
+			beginPath(),
+			arc( xPos-10 ,yPos+y*(91+moving_distance) , 5 ,0,pi*2,true),
+			arc( xPos+10 ,yPos+y*(91+moving_distance) , 5 ,0,pi*2,true),
+			closePath(),
+			fill(),
+			
+			//ears
+			fillRect(xPos-40,yPos+y*(20+moving_distance),20,10),
+			fillRect(xPos+20,yPos+y*(20+moving_distance),20,10),
+			
+		
+			// pupils
+			fillStyle=black,
+			beginPath(),
+			arc( xPos-19 ,yPos+y*(51+moving_distance) , 8 ,0,pi*2,true),
+			arc( xPos+19 ,yPos+y*(51+moving_distance) , 8 ,0,pi*2,true),
+			closePath(),
+			fill(),
+			
+			
+			fillText( score , xPos-100, yPos-50 );
+		
+			
+		dist+=dir;
+		if( dist == 15 || dist == 0){
+			dir = 0;
+		} 
+		else if( dist > 15 ) dist = 15;
+		else if( dist < 0 ) dist = 0;
+		else if( dir==-1 ) {
+			for(var j=0,jlen=balls.length;j<jlen;j++){
+				if( Math.abs(balls[j].x-xPos) < 20 && 
+					balls[j].y<yPos+y*(moving_distance+10) && 
+					balls[j].y>yPos+y*(85+moving_distance) ){
+
+					if( balls[j].active )
+						score++;
+					balls[j].active = 0;
+				}
+			}
+		}
+					
+	}
+	
+}
+	
+
+
+function ball( x , y , velocityX , velocityY ){
+	var me = this;
+	me.x = 60 + Math.random()*400;
+	me.y = 60 + Math.random()*400;
+	me.dX = velocityX||0;
+	me.dY = velocityY||0;
+	me.active = 1;
+	
+	me.move = function(){
+		if(!me.active)
+			return this;
+		var dist = distanceFromCenter( me.x , me.y , center ),
+			acc = acceleration( dist );
+			
+		me.dX+= .5*acc*( me.x>center ? 1 : -1);//*(dist>=outerCircle? -1 : 1 );
+		me.dY+= .5*acc*( me.y>center ? 1 : -1);//*(dist>=outerCircle? -1 : 1 );
+		
+		me.x+=me.dX;
+		me.y+=me.dY;
+	
+		return this;
+	};
+	
+	me.redraw = function(){
+		if(!me.active)
+			return this;
+		with(a)
+			fillStyle = "#fff",
+			beginPath(),
+			arc(me.x,me.y,ballsize,0,Math.PI*2,true),
+			closePath(),
+			fill();	
+			
+		return this;	
+	}
+}
+
+
+function distanceFromCenter( x , y , center ){
+	x=Math.abs(x-center);
+	y=Math.abs(y-center);
+	return Math.sqrt( x*x + y*y );
+}
+
+
+function acceleration( dist ){
+	
+	if( dist > innerCircle ){
+		return -.15*dist*.0075;
+	} else {
+		return .8*dist*.01;
+	}
+}
+
+
+setInterval( drawCourt , 15 );
+
+// end of submission //
+		</script>
+	</body>
+</html>
