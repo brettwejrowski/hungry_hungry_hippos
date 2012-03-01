@@ -69,6 +69,15 @@ function drawCourt(){
 	hippo.redraw();
 }	
 
+function arc2( xPos , yPos , x , y , r ){
+	with(a)
+		beginPath(),
+		arc( xPos-x ,yPos+y , r ,0,pi*2,true),
+		arc( xPos+x ,yPos+y , r ,0,pi*2,true),
+		closePath(),
+		fill();
+}
+
 
 function hippo( x , y , color ){
 	var me = this,
@@ -101,38 +110,21 @@ function hippo( x , y , color ){
 			arc( xPos , yPos+y*(30+moving_distance) , 55 ,0,pi*2,true),
 			closePath(),
 			fill(),
-			// eyes
-			fillStyle=white,
-			beginPath(),
-			arc( xPos-20 ,yPos+y*(50+moving_distance) , 10 ,0,pi*2,true),
-			arc( xPos+20 ,yPos+y*(50+moving_distance) , 10 ,0,pi*2,true),
-			closePath(),
-			fill(),
-			
-			
-			// nose
-			fillStyle=color.replace("d","9"),
-			beginPath(),
-			arc( xPos-10 ,yPos+y*(91+moving_distance) , 5 ,0,pi*2,true),
-			arc( xPos+10 ,yPos+y*(91+moving_distance) , 5 ,0,pi*2,true),
-			closePath(),
-			fill(),
-			
-			//ears
-			fillRect(xPos-40,yPos+y*(20+moving_distance),20,10),
-			fillRect(xPos+20,yPos+y*(20+moving_distance),20,10),
 			
 		
-			// pupils
-			fillStyle=black,
-			beginPath(),
-			arc( xPos-19 ,yPos+y*(51+moving_distance) , 8 ,0,pi*2,true),
-			arc( xPos+19 ,yPos+y*(51+moving_distance) , 8 ,0,pi*2,true),
-			closePath(),
-			fill(),
+			// score
+			fillText( score , xPos-100, yPos-50 ),
+			fillStyle=color.replace("d","9"),
 			
+			fillRect(xPos-40,yPos+y*(20+moving_distance),20,10),
+			fillRect(xPos+20,yPos+y*(20+moving_distance),20,10);
 			
-			fillText( score , xPos-100, yPos-50 );
+		// nose
+		arc2(xPos,yPos,10,y*(91+moving_distance),5);
+		arc2(xPos,yPos,22,y*(50+moving_distance) , 10);
+	
+			
+		
 		
 			
 		dist+=dir;
