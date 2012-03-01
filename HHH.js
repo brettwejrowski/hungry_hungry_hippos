@@ -3,7 +3,7 @@ a.font = "3em m",
 
  	z = 20, 
 	f = 255, 
-	g = n = k = u = v = 0, 
+	g = n = k = v = 0, 
 	j = T = 11, 
 	l = [], 
 	o = [0, 0], 
@@ -28,23 +28,26 @@ A = function(d, e, h, m) {
 },
 
 // draw the hippo
-Z = function(d, e) {
+Z = function(d, e, x, y) {
+	
+	// temp
+	x=0;y=-1;
 	
 	// movement offset
-    k = W - 8 * (e+=d);
+    k = 8 * (e+=d) - f;
 
 	// draw the body, eyes and nose
-    A(f, k - 75, 35, 1)(f, k - 30, 55);
+    A(f+x*(k+75),f+y*(k+75), 35, 1)(f+x*(k+30),f+y*(k+30), 55);
 
 	// score
-    a.fillText(g, f - 100, W - 50);
+    a.fillText(g,f+x*(50-f),f+y*(50-f));
 
     // make sure the movement is within the bounds
     !e % 15 ? d = 0 : 15 < e ? e = 15 : 0 > e && (e = 0); 
 
 	// iterate through the balls to see if we caught one
 	while (n=l[--j])
-        -1 == d && t(n.x - f) < z && t(n.y - (k-55) ) < 40 && (1 != n && g++, l[j] = 1);
+        -1 == d && t(n.x - f+x*k) < z && t(n.y - (f+y*(k+55)) ) < 40 && (1 != n && g++, l[j] = 1);
 
 	// reset the iterator
     j = 0;
@@ -68,10 +71,10 @@ setInterval(function() {
         if (1 != n) {
 			
 			// get our distance from center 
-            var d = n.x, e = n.y, h = f, d = t(d - h), e = t(e - h), d = u = s(d * d + e * e);
+            var d = n.x, e = n.y, d = t(d - f), e = t(e - f), d = s(d * d + e * e);
             
 			// get our acceleration based on position
-			v = 40 < d ? -0.001125 * d : 0.016 * d;
+			v = 40 < d ? -0.15 : 0.4;
 			
 			// calculation the velocity and new position
             n.x += n.a += 0.5 * v * (n.x > f ? 1 : -1);
