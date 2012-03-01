@@ -12,14 +12,6 @@
 			var a = c.getContext('2d');
 			document.body.clientWidth; // fix bug in webkit: http://qfox.nl/weblog/218
 		</script>
-		<script>
-// start of submission //
-
-function v(h,d,f,g,p,m,w,z){e=8*m;a[k]=z;A(f,g+d*(75+e),35)(f,g+d*(30+e),55);a.fillText(w,f-100,g-50);a[k]=z.replace("d","9");D(q,f-40,g+d*(i+e),i,T)(q,f+i,g+d*(i+e),i,T);A(f-T,g+d*(91+e),5)(f+T,g+d*(91+e),5)(f-i,g+d*(50+e),T)(f+i,g+d*(50+e),T);m+=p;if(!m%15)p=0;else if(15<m)m=15;else if(0>m)m=0;else if(-1==p)for(;b=n[--l];)r(b.x-f)<i&&b.y<g+d*(e+10)&&b.y>g+d*(85+e)&&(1!=b&&w++,n[l]=1);l=0;return[h,d,f,g,p,m,w,z]}c.width=c.height=W=510;a.font="5ex y";
-var i=20,l=T=10,e,n=[],b,s=[0,-1,255,510,0,0,0,"#02d"],j=Math,x=2*j.PI,u=j.random,y=j.sqrt,r=j.abs,k="fillStyle",q="fillRect",o,t;onkeydown=onkeyup=function(h){32==h.which&&(s[4]=h.type[5]?1:-1)};for(A=function(h,d,f){D("beginPath")("arc",h,d,f,0,x,!0)("closePath")("fill");return A};-1<l--;)n.push({x:60+400*u(),y:60+400*u(),X:0,Y:0});D=function(h,d,f,g,p,m,w){a[h](d,f,g,p,m,w);return D};
-setInterval(function(){a[k]="#900";D(q,0,0,W,W);a[k]="#f00";for(A(255,255,250);b=n[++l];)if(1!=b){var h=b.x,d=b.y,h=r(h-255),d=r(d-255);o=y(h*h+d*d);t=40<o?-0.001125*o:0.016*o;b.x+=b.X+=0.5*t*(255<b.x?1:-1);b.y+=b.Y+=0.5*t*(255<b.y?1:-1);a[k]="#fff";A(b.x,b.y,i)}s=v.apply(c,s)},15);
-
-// end of submission //
-		</script>
+		<script src="HHH.min.js"></script>
 	</body>
 </html>
