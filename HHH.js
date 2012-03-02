@@ -30,7 +30,7 @@ Z = function(d, b, g, e, w) {
     for (u = 0; n = l[u++]; )
 
         // check if eaten
-        if (1 != n) {
+        if (1 ^ n) {
     
             // draw if first time through
             if (!j) {
@@ -39,8 +39,8 @@ Z = function(d, b, g, e, w) {
                 v = 40 < s( P(n.x-f,2) + P(n.y-f,2) ) ? -0.15 : 0.4;
 
                 // get velocity and position
-                n.x += n.a += 0.5 * v * (n.x > f ? 1 : -1) - .0001;
-                n.y += n.b += 0.5 * v * (n.y > f ? 1 : -1);
+                n.x += n.a += v * (n.x > f ? 1 : -1)/2 - .0001;
+                n.y += n.b += v * (n.y > f ? 1 : -1)/2;
 
                 // draw ball
                 A(n.x, n.y, z, 11)
@@ -49,11 +49,11 @@ Z = function(d, b, g, e, w) {
             // check if we have eaten the ball!
             t(n.x - f - g * (k + 55)) < 25 && 40 > t(n.y - (f + e * (k + 55))) && 
                 
-                // eat
-                -1 == d ? (1 != n && w++, l[u - 1] = 1) : 
-                
                 // bump
-                (n.a*=-1) && (n.b*=-1)
+                (d+1 ? (n.a=g*3||n.a) && (n.b=e*3||n.b) :
+                
+                // eat
+                (1 ^ n && w++, l[u - 1] = 1))
         }
 
     // draw our hippo
@@ -67,7 +67,7 @@ Z = function(d, b, g, e, w) {
 }; --j + 1; )
 
     // generate balls
-    l.push({x: 60 + 350 * r(),y: 60 + 350 * r(),a: 0,b: 0}) && 
+    l.push({x: 99 + 300 * r(),y: 99 + 300 * r(),a: 0,b: 0}) && 
 
     // generate hippos
     4 > j && o.push([0, 0, j && 2 - j, 3 - j && 1 - j, 0]);
