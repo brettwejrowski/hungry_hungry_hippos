@@ -15,7 +15,7 @@ a.font = "3em m",
 
 // spacebar presses	
 onkeyup = onkeydown = function(d) {
-    32 == d.which && (o[2][0] = d.type[5] ? 1 : -1)
+    32 == d.which && (o[1][0] = d.type[5] ? 1 : -1)
 },
 
 
@@ -29,21 +29,12 @@ A = function(d, e, h, m) {
 
 // draw the hippo
 Z = function(d, e, x, y, g) {
-	
-	// temp
-	x=0;y=-1;
-	
+		
 	// movement offset
     k = 8 * (e+=d) - f;
 
-	// draw the body, eyes and nose
-    A(f+x*(k+75),f+y*(k+75), 35, 1)(f+x*(k+30),f+y*(k+30), 55);
-
-	// score
-    a.fillText(g,f+x*(50-f),f+y*(50-f));
-
     // make sure the movement is within the bounds
-    !e % 15 ? d = 0 : 15 < e ? e = 15 : 0 > e && (e = 0); 
+    !e % 15 ? d = 0 : 15 < e ? e = 15 : 0 > e && (e = 0);
 
 	// iterate through the balls
 	for(u=0;n=l[u++];){
@@ -53,10 +44,10 @@ Z = function(d, e, x, y, g) {
 			// redraw the ball on the first pass
 			if(!j){
 				// get our distance from center 
-	            var d = n.x, e = n.y, d = t(d - f), e = t(e - f), d = s(d * d + e * e);
+	            var dd = n.x, ee = n.y, dd = t(dd - f), ee = t(ee - f), dd = s(dd * dd + ee * ee);
         
 				// get our acceleration based on position
-				v = 40 < d ? -0.15 : 0.4;
+				v = 40 < dd ? -0.15 : 0.4;
 		
 				// calculation the velocity and new position
 	            n.x += n.a += 0.5 * v * (n.x > f ? 1 : -1);
@@ -66,22 +57,33 @@ Z = function(d, e, x, y, g) {
 	            A(n.x, n.y, z, 3)
 			}
 			// see if we caught one
-		    -1 == d && t(n.x - (f+x*k)) < z && t(n.y - (f+y*(k+55)) ) < 40 && (1 != n && g++, l[j] = 1);
+		    -1 == d && t(n.x - f+x*(k+55)) < z && t(n.y - (f+y*(k+55)) ) < 40 && (1 != n && g++, l[u-1] = 1);
         }
     }
-	// reset the iterator
+
+	// draw the body, eyes and nose
+    A(f+x*(k+75),f+y*(k+75), 35, 1)(f+x*(k+30),f+y*(k+30), 55);
+
+	// score
+	a.fillColor="#fff"
+    a.fillText(g,f+x*(k),f+y*(k));
+	
     return arguments
 };
 
 // create all the balls and hippos
 while(--j + 1)
-   	l.push({x: 60 + 400 * r(),y: 60 + 400 * r(),a: 0,b: 0}) && j<4 && o.push([ 0, 0, j||j-2, !3-j?0:1-j, 0 ]);
+   	l.push({x: 60 + 350 * r(),y: 60 + 350 * r(),a: 0,b: 0}) && j<4 && o.push([ 0, 0, j&&2-j, 3-j&&1-j, 0 ]);
 
 // main drawing function
-(function() {
+setInterval(function() {
 	
-	// draw the board & background 			    // iterate through the balls
-    for (A(f, f, 2 * W, 8)(f, f, 250, 5 ),j=0; i=o[++j];)o[j]=Z.apply(c,i);
-	
+	// draw the board & background 			    
+    A(f, f, 2 * W, 8)(f, f, 250, 5 );
 
-}());
+	// iterate through the balls
+	for(j=0; i=o[j];j++)
+		o[j]=Z.apply(c,i);
+
+
+},15);
