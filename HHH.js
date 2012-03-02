@@ -3,10 +3,10 @@ a.font = "3em m",
 
  	z = 20, 
 	f = 255, 
-	g = n = k = v = 0, 
+	n = k = v = u = i = 0, 
 	j = T = 11, 
 	l = [], 
-	o = [0, 0], 
+	o = [], 
 	p = Math, 
 	q = 2 * p.PI, 
 	r = p.random, 
@@ -15,7 +15,7 @@ a.font = "3em m",
 
 // spacebar presses	
 onkeyup = onkeydown = function(d) {
-    32 == d.which && (o[0] = d.type[5] ? 1 : -1)
+    32 == d.which && (o[2][0] = d.type[5] ? 1 : -1)
 },
 
 
@@ -28,7 +28,7 @@ A = function(d, e, h, m) {
 },
 
 // draw the hippo
-Z = function(d, e, x, y) {
+Z = function(d, e, x, y, g) {
 	
 	// temp
 	x=0;y=-1;
@@ -45,45 +45,43 @@ Z = function(d, e, x, y) {
     // make sure the movement is within the bounds
     !e % 15 ? d = 0 : 15 < e ? e = 15 : 0 > e && (e = 0); 
 
-	// iterate through the balls to see if we caught one
-	while (n=l[--j])
-        -1 == d && t(n.x - f+x*k) < z && t(n.y - (f+y*(k+55)) ) < 40 && (1 != n && g++, l[j] = 1);
-
-	// reset the iterator
-    j = 0;
-    return arguments
-};
-
-// create all the balls
-while(--j + 1)
-   	l.push({x: 60 + 400 * r(),y: 60 + 400 * r(),a: 0,b: 0});
-
-// main drawing function
-setInterval(function() {
-	
-	// draw the board & background
-    for (A(f, f, 2 * W, 8)(f, f, 250, 5 ); 
-
 	// iterate through the balls
-	n = l[++j]; )
-	
+	for(u=0;n=l[u++];){
 		// check if its eaten
         if (1 != n) {
 			
-			// get our distance from center 
-            var d = n.x, e = n.y, d = t(d - f), e = t(e - f), d = s(d * d + e * e);
-            
-			// get our acceleration based on position
-			v = 40 < d ? -0.15 : 0.4;
-			
-			// calculation the velocity and new position
-            n.x += n.a += 0.5 * v * (n.x > f ? 1 : -1);
-            n.y += n.b += 0.5 * v * (n.y > f ? 1 : -1);
+			// redraw the ball on the first pass
+			if(!j){
+				// get our distance from center 
+	            var d = n.x, e = n.y, d = t(d - f), e = t(e - f), d = s(d * d + e * e);
+        
+				// get our acceleration based on position
+				v = 40 < d ? -0.15 : 0.4;
+		
+				// calculation the velocity and new position
+	            n.x += n.a += 0.5 * v * (n.x > f ? 1 : -1);
+	            n.y += n.b += 0.5 * v * (n.y > f ? 1 : -1);
 
-			// redraw the ball
-            A(n.x, n.y, z, 3)
+				// redraw the ball
+	            A(n.x, n.y, z, 3)
+			}
+			// see if we caught one
+		    -1 == d && t(n.x - (f+x*k)) < z && t(n.y - (f+y*(k+55)) ) < 40 && (1 != n && g++, l[j] = 1);
         }
+    }
+	// reset the iterator
+    return arguments
+};
 
-	// call the hippo draw function
-    o = Z.apply(c, o)
-}, 15);
+// create all the balls and hippos
+while(--j + 1)
+   	l.push({x: 60 + 400 * r(),y: 60 + 400 * r(),a: 0,b: 0}) && j<4 && o.push([ 0, 0, j||j-2, !3-j?0:1-j, 0 ]);
+
+// main drawing function
+(function() {
+	
+	// draw the board & background 			    // iterate through the balls
+    for (A(f, f, 2 * W, 8)(f, f, 250, 5 ),j=0; i=o[++j];)o[j]=Z.apply(c,i);
+	
+
+}());
