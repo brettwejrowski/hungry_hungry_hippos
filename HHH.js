@@ -9,79 +9,79 @@ onkeyup = onkeydown = function(d) {
 // function to handle graphing
 A = function(d, b, g, e , W) {
     with (a)
-        e && (fillStyle = "0ff0f00900fff".substr(e - 1, 3)), 
-		W ? fillText( d , b , g ) :
-		(beginPath(), arc(d, b, g, 0, q, !0), fill());
+        e && (fillStyle = "#"+"0ff0f00900fff".substr(e - 1, 3)), 
+        W ? fillText( d , b , g ) :
+        (beginPath(), arc(d, b, g, q, 0, 0), fill());
     return A
 }, 
 
 // draw our hippos
 Z = function(d, b, g, e, w) {
-	
-	15 < (b+=d) ? b = 15 : 0 > b && (b = 0);
-		
-	// set the movement
+    
+    15 < (b+=d) ? b = 15 : 0 > b && (b = 0);
+        
+    // set the movement
     k = 8 * b - f;
 
-	// make sure we are within our bounds
+    // make sure we are within our bounds
     b % 15 || (d = b && j ? -1 : 0 );
 
-	// iterate through balls
+    // iterate through balls
     for (u = 0; n = l[u++]; )
 
-		// check if eaten
+        // check if eaten
         if (1 != n) {
-	
-			// draw if first time through
+    
+            // draw if first time through
             if (!j) {
 
-				// get acceleration
+                // get acceleration
                 v = 40 < s( P(n.x-f,2) + P(n.y-f,2) ) ? -0.15 : 0.4;
 
-				// get velocity and position
+                // get velocity and position
                 n.x += n.a += 0.5 * v * (n.x > f ? 1 : -1) - .0001;
                 n.y += n.b += 0.5 * v * (n.y > f ? 1 : -1);
 
-				// draw ball
+                // draw ball
                 A(n.x, n.y, z, 11)
             }
 
-			// check if we have eaten the ball!
+            // check if we have eaten the ball!
             t(n.x - f - g * (k + 55)) < 25 && 40 > t(n.y - (f + e * (k + 55))) && 
-				
-				// eat
-				-1 == d ? (1 != n && w++, l[u - 1] = 1) : 
-				
-				// bump
-				(n.a*=-1) && (n.b*=-1)
+                
+                // eat
+                -1 == d ? (1 != n && w++, l[u - 1] = 1) : 
+                
+                // bump
+                (n.a*=-1) && (n.b*=-1)
         }
 
-	// draw our hippo
+    // draw our hippo
     A(f + g * (k + 75), f + e * (k + 75), 45, j + 1)(f + g * (k + 30), f + e * (k + 30), 65)
 
-	// draw the score
-	( w , f + g * (k+50), f + e * (k+50) , 11 , 1 )
+    // draw the score
+    ( w , f + g * (k+50), f + e * (k+50) , 11 , 1 )
 
     return arguments
 
 }; --j + 1; )
 
-	// generate balls
+    // generate balls
     l.push({x: 60 + 350 * r(),y: 60 + 350 * r(),a: 0,b: 0}) && 
 
-	// generate hippos
-	4 > j && o.push([0, 0, j && 2 - j, 3 - j && 1 - j, 0]);
+    // generate hippos
+    4 > j && o.push([0, 0, j && 2 - j, 3 - j && 1 - j, 0]);
 
 
 setInterval(function() {
-	
-	// draw board
+    
+    // draw board
     A(f, f, 2 * W, 8)(f, f, 250, 5);
 
-	// iterate through hippos and update
+    // iterate through hippos and update
     for (j = 0, I = Q(99 * r()); i = o[j]; j++)
         o[j] = Z.apply(c, i);
 
-	// randomly make an AI hippo bite
+    // randomly make an AI hippo bite
     o[I] && I && (o[I][0] = 1)
 }, 15)
