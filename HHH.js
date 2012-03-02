@@ -3,7 +3,7 @@ a.font = "3em m",
 
  	z = 20, 
 	f = 255, 
-	n = k = v = u = i = 0, 
+	n = k = v = u = i = I = 0, 
 	j = T = 11, 
 	l = [], 
 	o = [], 
@@ -12,17 +12,18 @@ a.font = "3em m",
 	r = p.random, 
 	s = p.sqrt, 
 	t = p.abs, 
+	Q = p.ceil,
 
 // spacebar presses	
 onkeyup = onkeydown = function(d) {
-    32 == d.which && (o[1][0] = d.type[5] ? 1 : -1)
+    32 == d.which && (o[0][0] = d.type[5] ? 1 : -1)
 },
 
 
 // draw a circle
 A = function(d, e, h, m) {
 	with(a)
-   		m && (a.fillStyle = "00fff00900f0".substr(m-1,3)),
+   		m && (a.fillStyle = "0ff0f00900fff".substr(m-1,3)),
    		beginPath(), arc( d, e, h, 0, q, !0), fill();
    	return A
 },
@@ -34,7 +35,7 @@ Z = function(d, e, x, y, g) {
     k = 8 * (e+=d) - f;
 
     // make sure the movement is within the bounds
-    !e % 15 ? d = 0 : 15 < e ? e = 15 : 0 > e && (e = 0);
+    !(e % 15) ? ( d = (e&&j) ? -1 : 0 ) : 15 < e ? e = 15 : 0 > e && (e = 0);
 
 	// iterate through the balls
 	for(u=0;n=l[u++];){
@@ -54,18 +55,18 @@ Z = function(d, e, x, y, g) {
 	            n.y += n.b += 0.5 * v * (n.y > f ? 1 : -1);
 
 				// redraw the ball
-	            A(n.x, n.y, z, 3)
+	            A(n.x, n.y, z, 11)
 			}
 			// see if we caught one
-		    -1 == d && t(n.x - f+x*(k+55)) < z && t(n.y - (f+y*(k+55)) ) < 40 && (1 != n && g++, l[u-1] = 1);
+		    -1 == d && t(n.x - f-x*(k+55)) < z && t(n.y - (f+y*(k+55)) ) < 45 && (1 != n && g++, l[u-1] = 1);
         }
     }
 
 	// draw the body, eyes and nose
-    A(f+x*(k+75),f+y*(k+75), 35, 1)(f+x*(k+30),f+y*(k+30), 55);
+    A(f+x*(k+75),f+y*(k+75), 35, j+1)(f+x*(k+30),f+y*(k+30), 55);
 
 	// score
-	a.fillColor="#fff"
+	a.fillStyle="#fff";
     a.fillText(g,f+x*(k),f+y*(k));
 	
     return arguments
@@ -81,9 +82,13 @@ setInterval(function() {
 	// draw the board & background 			    
     A(f, f, 2 * W, 8)(f, f, 250, 5 );
 
+
+
 	// iterate through the balls
-	for(j=0; i=o[j];j++)
-		o[j]=Z.apply(c,i);
+	for(j=0,I=Q(r()*99); i=o[j];j++)o[j]=Z.apply(c,i);
+	
+	// randomly make a hippo bite
+	o[I]&&I&&(o[I][0]=1);
 
 
 },15);
