@@ -50,7 +50,7 @@ Z = function(d, b, g, e, w) {
 	            ),
 
 	            // check if we have eaten the ball!
-	            t(x - f - g * (k + 55)) < 25 && 40 > t(y - f - e * ( k + 55 ) ) && 
+	            t(x - f - g * (k + 55)) < 25 && 50 > t(y - f - e * ( k + 55 ) ) && 
                 
 	                // bump
 	                (~d ? (X=g*3||X) && (X=e*3||Y) :
@@ -60,15 +60,15 @@ Z = function(d, b, g, e, w) {
         
 		
     // draw our hippo
-    A( K + g * 65, J + e * 65, 50+b/3, j + 1)(K + g * z, J + e * z, 60)
+    A( K + g * 60, J + e * 60, 50+b/3, j + 1)(K + g * z, J + e * z, 60)
 	 	
 
     // draw the score
     ( w , f - g * 180 - ( g || -e * N ), f - e * 180 - ( e || g * N ) , 0 , 1 )
 	
 	// draw the eyes
-	( K + g * 40 - ( g || z ), J + e * 40 - ( e || z ) , T , 12 )
- 	( K + g * 40 + ( g || z ), J + e * 40 + ( e || z ) , T , 12 )
+	( K + g * 40 - ( g || z ), J + e * 40 - ( e || z ) , T+b/3 , 12 )
+ 	( K + g * 40 + ( g || z ), J + e * 40 + ( e || z ) , T+b/3 , 12 )
  	( K + g * 45 - ( g || T ), J + e * 45 - ( e || T ) , 7 , 9 )
  	( K + g * 44 + ( g || T ), J + e * 44 + ( e || T ) , 7 , 9 )
 
