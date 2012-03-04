@@ -1,5 +1,5 @@
 // setup
-for (c.width = c.height = W = 510, a.font = "3em a", z = j = 15, N=99, f = 255, F=40, E=50, S = 0, T = 10, l = [], o = [], p = Math, q = 2 * p.PI, r = p.random, s = p.sqrt, t = p.abs, P=p.pow,
+for (c.width = c.height = W = 510, a.font = '3em a', z = j = 15, N=99, f = 255, F=40, E=50, S = 0, T = 10, l = [], o = [], p = Math, q = 2 * p.PI, r = p.random, s = p.sqrt, t = p.abs, P=p.pow,
 
 // spacebar hits
 onkeyup = onkeydown = function(d) {
@@ -9,7 +9,7 @@ onkeyup = onkeydown = function(d) {
 // function to handle graphing
 A = function(d, b, g, e , w) {
     with (a)
-        e+1 && (fillStyle = "#"+"0ff0f009000fff".substr(e , 3)), 
+        e+1 && (fillStyle = '#'+'0ff0f009000fff'.substr(e , 3)), 
         w ? fillText( g , d , b ) :
         (beginPath(), arc(d, b, g, q, 0, 0), fill());
     return A
@@ -27,7 +27,7 @@ C = function(d, b, g, e, w) {
 	// set the movement
     for (u = 0, k = 8 * b - f, 
 		V = function( Z , M , U , G , D ){
-			A( f + g * ( k + M ) - ( g || Z ) ,  f + e * ( k + M ) - ( e || Z ) , U , G , D );
+			A( f + g * ( k + M ) - ( g || Z ) ,  f + e * ( k + M ) - ( e || Z ) , U , G , D )
 			return V
 		}; 
 		
@@ -53,10 +53,10 @@ C = function(d, b, g, e, w) {
 	            ),
 
 	            // check if we have eaten the ball!
-	            t(x - f - g * ( k + E ) ) < 25 && F > t(y - f - e * ( k + E ) ) && 
+	            s( P(x - f - g * ( k + E ) , 2 ) + P(y - f - e * ( k + E ) , 2 ) ) < F-T && 
                 
 	                // bump
-	                (~d ? (X=g*2||X) && (X=e*2||Y) :
+	                (~d ? (X=g*3*d||X) && (Y=e*3*d||Y) :
                 
 	                // eat
 	                S++ && (1 ^ n && w++, l[u - 1] = 1));
@@ -96,4 +96,5 @@ setInterval(function() {
 
     // randomly make an AI hippo bite
     o[++I] && S <= z && (o[I][0] = 1)
+
 }, z)
